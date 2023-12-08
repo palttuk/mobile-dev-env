@@ -2,12 +2,15 @@
 
 if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
 	echo "Android SDK is not installed."
-	# Add your Android SDK installation command here. For example:
 	echo "Installing Java 8..."
-	brew install --cask homebrew/cask-versions/temurin8
-	echo 'export JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.zshrc
 
-	echo 'export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"' >> ~/.zshrc
+	brew install --cask temurin
+	brew tap homebrew/cask-versions
+	brew install --cask temurin8
+	brew install --cask temurin11
+	brew install --cask temurin17
+
+	echo 'export JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.zshrc
 
 	brew install --cask android-sdk
 	mv /usr/local/Caskroom/android-sdk ~/Library/Android/sdk

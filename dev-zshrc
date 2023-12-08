@@ -1,3 +1,12 @@
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "Oh My Zsh is not installed."
+    # Install Oh My Zsh
+    echo "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+    echo "Oh My Zsh is installed."
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
            
 # Initialization code that may require console input (password prompts, [y/n]
@@ -118,10 +127,6 @@ alias bb="flutter pub run build_runner build -d"
 alias bw="flutter pub run build_runner watch -d"
 alias od="open /System/Library/PreferencePanes/Displays.prefPane"
 
-export FLUTTER_ROOT="$(asdf where flutter)"
-export JAVA_HOME="$(which java)"
-export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
-export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 export PATH=$HOME/Library/Android/sdk/platform-tools:$FLUTTER_ROOT:$PATH
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
@@ -143,3 +148,7 @@ source ~/Repos/znap/znap.zsh
 source ~/Repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 
+export FLUTTER_ROOT="$(asdf where flutter)"
+export JAVA_HOME="$(which java)"
+export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
