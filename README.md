@@ -9,7 +9,10 @@ mobile 개발 환경 설정
 ## iOS development 
 * 최신 Xcode 설치
 * ruby 
+    * rbenv
+    * install latest ruby version
 * cocoapods
+    * latest cocoapods
 
 ## Flutter SDK
 * install latetest 
