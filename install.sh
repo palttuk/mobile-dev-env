@@ -8,33 +8,38 @@ else
 	echo "brew SDK is installed."
 fi
 
-if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
-	echo "Android SDK is not installed."
-	echo "Installing Java 8..."
+# if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
+# 	echo "Android SDK is not installed."
+# 	echo "Installing Java 8..."
 
-	brew install --cask temurin
-	brew tap homebrew/cask-versions
-	brew install --cask temurin8
-	brew install --cask temurin11
-	brew install --cask temurin17
+# 	brew install --cask temurin
+# 	brew tap homebrew/cask-versions
+# 	brew install --cask temurin8
+# 	brew install --cask temurin11
+# 	brew install --cask temurin17
 
-	echo 'export JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.zshrc
+# 	echo 'export JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.zshrc
 
-	brew install --cask android-sdk
-	mv /usr/local/Caskroom/android-sdk ~/Library/Android/sdk
-	echo 'export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"' >> ~/.zshrc
-	echo 'export ANDROID_HOME="$HOME/Library/Android/sdk"' >> ~/.zshrc
-else
-	echo "Android SDK is installed."
-fi
+# 	brew install --cask android-sdk
+#  	brew install wget
+#  	wget https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
+#   	wget https://dl.google.com/android/repository/commandlinetools-mac-10406996_latest.zip
+  
+#  	mkdir -p ~/Library/Android/sdk
+# 	mv /usr/local/Caskroom/android-sdk ~/Library/Android/sdk
+# 	echo 'export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"' >> ~/.zshrc
+# 	echo 'export ANDROID_HOME="$HOME/Library/Android/sdk"' >> ~/.zshrc
+# else
+# 	echo "Android SDK is installed."
+# fi
 
 # Check if Android Studio is installed
 if [ ! -d "/Applications/Android Studio.app" ]; then
 	echo "Android Studio is not installed."
 	# Add your Android Studio installation command here. For example:
 	brew install --cask android-studio
-	echo "Setting Android Studio path..."
-	export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+	echo "Setting Android Studio path..."	
+ 	echo 'export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"' >> ~/.zshrc
 else
 	echo "Android Studio is installed."
 fi
@@ -50,13 +55,15 @@ then
 	# Install a specific version of Flutter
 	echo "install latest flutter version"
 	asdf install flutter latest
-	read flutter_version
-	echo "run: asdf install flutter $flutter_version"
-	asdf install flutter $flutter_version
+	# read flutter_version
+	# echo "run: asdf install flutter $flutter_version"
+	# asdf install flutter $flutter_version
 
 	# Set a version as the global version
 	echo "Global flutter version is latest!!!"
 	asdf global flutter latest
+ 
+	echo 'export FLUTTER_ROOT="$(asdf where flutter)"' >> ~/.zshrc 
 else 
     	echo "asdf is installed."    	
 fi
@@ -72,10 +79,11 @@ then
 	latest_ruby_version=$(rbenv install -l | grep -v - | tail -1)
 	rbenv install $latest_ruby_version
 
+	eval "$(rbenv init -)"
 	echo "set latest ruby version"
 	rbenv global $latest_ruby_version
 
-	eval "$(rbenv init -)"
+	source ~/.zshrc
 
 	echo "install bundler"
 	gem install bundler	    	
@@ -98,7 +106,7 @@ if [ ! -d "/Applications/Xcode.app" ]; then
     echo "Xcode is not installed."
     # Install Xcode
     echo "Installing Xcode..."
-    brew install --cask xcodes
+    brew install --cask xcodes    
 else
     echo "Xcode is installed."
 fi
@@ -112,5 +120,8 @@ echo 'export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools' >> ~/.zshrc
 echo "Check dev development completed"
 command asdf exec flutter doctor -v
 
-echo 'export FLUTTER_ROOT="$(asdf where flutter)"' >> ~/.zshrc
 echo "Environment setup complete!"
+
+echo "Install Xcode below xcode list"
+xcodes --list
+
