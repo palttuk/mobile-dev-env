@@ -1,5 +1,8 @@
 #!/bin/sh
 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile\neval $(/opt/homebrew/bin/brew shellenv)
+
 if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
 	echo "Android SDK is not installed."
 	echo "Installing Java 8..."
@@ -33,11 +36,11 @@ fi
 
 if ! command -v asdf &> /dev/null
 then
-    echo "asdf is not installed. Install it first."
-    exit
-else 
 	# Add Flutter plugin to asdf
 	echo "install asdf"
+	brew install asdf
+ 	brew install jq
+  
 	asdf plugin-add flutter
 	# Install a specific version of Flutter
 	echo "install latest flutter version"
@@ -49,13 +52,13 @@ else
 	# Set a version as the global version
 	echo "Global flutter version is latest!!!"
 	asdf global flutter latest
+else 
+    	echo "asdf is installed."
+    	exit 
 fi
 
 if ! command -v rbenv &> /dev/null
 then
-    echo "rbenv is not installed. Install it first."
-    exit
-else 
 	# Add Flutter plugin to asdf
 	echo "install rbenv"
 	brew install rbenv ruby-build
@@ -71,17 +74,21 @@ else
 	eval "$(rbenv init -)"
 
 	echo "install bundler"
-	gem install bundler
+	gem install bundler	    	
+else 
+ 	echo "rbenv is installed."
+  	exit
 fi
 
 if ! command -v pod &> /dev/null
 then
-    echo "pod is not installed. Install it first."
-    exit
-else 
 	# Add Flutter plugin to asdf
 	echo "install latest pod"
 	gem install cocoapods
+
+else 
+    	echo "pod is not installed. Install it first."
+    	exit
 fi
 
 # Check if Xcode is installed
@@ -89,10 +96,13 @@ if [ ! -d "/Applications/Xcode.app" ]; then
     echo "Xcode is not installed."
     # Install Xcode
     echo "Installing Xcode..."
-    brew install --cask xcode
+    brew install --cask xcodes
 else
     echo "Xcode is installed."
 fi
+
+brew install --cask chrome
+brew install --cask visual-studio-code
 
 # 환경 변수 설정을 쉘 설정 파일에 추가
 echo 'export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools' >> ~/.zshrc
