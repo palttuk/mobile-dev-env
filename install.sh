@@ -58,8 +58,7 @@ then
 	echo "Global flutter version is latest!!!"
 	asdf global flutter latest
 else 
-    	echo "asdf is installed."
-    	exit 
+    	echo "asdf is installed."    	
 fi
 
 if ! command -v rbenv &> /dev/null
@@ -82,7 +81,6 @@ then
 	gem install bundler	    	
 else 
  	echo "rbenv is installed."
-  	exit
 fi
 
 if ! command -v pod &> /dev/null
@@ -92,8 +90,7 @@ then
 	gem install cocoapods
 
 else 
-    	echo "pod is not installed. Install it first."
-    	exit
+    	echo "pod is installed. Install it first."
 fi
 
 # Check if Xcode is installed
