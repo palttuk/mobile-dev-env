@@ -1,7 +1,12 @@
 #!/bin/sh
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile\neval $(/opt/homebrew/bin/brew shellenv)
+if ! command -v brew &> /dev/null
+then
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile\neval $(/opt/homebrew/bin/brew shellenv)
+else 
+	echo "brew SDK is installed."
+fi
 
 if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
 	echo "Android SDK is not installed."
